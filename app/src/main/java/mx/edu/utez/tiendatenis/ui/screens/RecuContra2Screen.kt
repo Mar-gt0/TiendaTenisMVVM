@@ -1,38 +1,28 @@
 package mx.edu.utez.tiendatenis.ui.screens
 
-import android.util.Log.i
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Column
-import androidx.compose.material3.Button
-import androidx.compose.material3.Label
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavController
-import mx.edu.utez.tiendatenis.ui.theme.TiendaTenisTheme
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.PlainTooltip
+import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import mx.edu.utez.tiendatenis.R
-
-
-
-
+import mx.edu.utez.tiendatenis.ui.theme.TiendaTenisTheme
 
 @Composable
-fun RecuContraScreen( ){
+fun RecuContra2Screen( ){
     Column (
         modifier = Modifier
             .fillMaxSize()
@@ -42,19 +32,35 @@ fun RecuContraScreen( ){
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(20.dp, Alignment.CenterVertically)
     ) {
-        Image(
-            painter = painterResource(R.drawable.tennislogo),
-            contentDescription = "Logo de nuestra app"
-        )
 
         Text(
-            text =  "Ingresa tu correo electronico"
+            text =  "Ingresa el código que enviamos al correo"
         )
 
         TextField(
             value = "",
             onValueChange = {},
-            label = { Text("Correo electrónico") }
+            label = { Text("*  *  *  *") }
+        )
+
+        Text(
+            text =  "Ingresa tu nueva contraseña"
+        )
+
+        TextField(
+            value = "",
+            onValueChange = {},
+            label = { Text("Contraseña") }
+        )
+
+        Text(
+            text =  "Confirma tu contraseña"
+        )
+
+        TextField(
+            value = "",
+            onValueChange = {},
+            label = { Text("Contraseña") }
         )
 
 
@@ -67,7 +73,7 @@ fun RecuContraScreen( ){
             )
         ) {
             Text(
-                text = "Continuar"
+                text = "Recuperar contraseña"
             )
         }
 
@@ -77,8 +83,8 @@ fun RecuContraScreen( ){
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewRecuContraScreen(){
+fun PreviewRecuContra2Screen() {
     TiendaTenisTheme {
-        RecuContraScreen()
+        RecuContra2Screen()
     }
 }
