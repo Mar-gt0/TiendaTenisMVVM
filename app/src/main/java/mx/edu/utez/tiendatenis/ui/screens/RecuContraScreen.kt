@@ -26,6 +26,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import mx.edu.utez.tiendatenis.R
+import mx.edu.utez.tiendatenis.ui.components.texts.Label
+
 
 
 
@@ -47,14 +49,12 @@ fun RecuContraScreen( ){
             contentDescription = "Logo de nuestra app"
         )
 
-        Text(
-            text =  "Ingresa tu correo electronico"
-        )
+        Label("Ingresa tu correo electronico")
 
         TextField(
             value = "",
             onValueChange = {},
-            label = { Text("Correo electrónico") }
+            label = { Label("Correo electrónico")}
         )
 
 
@@ -66,9 +66,7 @@ fun RecuContraScreen( ){
                 containerColor = Color(0xFFFFDE59)
             )
         ) {
-            Text(
-                text = "Continuar"
-            )
+            Label("Continuar")
         }
 
     }

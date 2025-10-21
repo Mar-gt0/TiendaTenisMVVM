@@ -19,6 +19,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import mx.edu.utez.tiendatenis.R
+import mx.edu.utez.tiendatenis.ui.components.inputs.EditText
+import mx.edu.utez.tiendatenis.ui.components.texts.Label
 import mx.edu.utez.tiendatenis.ui.theme.TiendaTenisTheme
 
 @Composable
@@ -33,34 +35,28 @@ fun RecuContra2Screen( ){
         verticalArrangement = Arrangement.spacedBy(20.dp, Alignment.CenterVertically)
     ) {
 
-        Text(
-            text =  "Ingresa el código que enviamos al correo"
-        )
+        Label("Ingresa el código que enviamos al correo")
 
         TextField(
             value = "",
             onValueChange = {},
-            label = { Text("*  *  *  *") }
+            label = { Label(" *   *   *   *") }
         )
 
-        Text(
-            text =  "Ingresa tu nueva contraseña"
-        )
+        Label("Ingresa tu nueva contraseña")
 
         TextField(
             value = "",
             onValueChange = {},
-            label = { Text("Contraseña") }
+            label = { Label("Contraseña") }
         )
 
-        Text(
-            text =  "Confirma tu contraseña"
-        )
+        Label("Confirma tu contraseña")
 
         TextField(
             value = "",
             onValueChange = {},
-            label = { Text("Contraseña") }
+            label = { Label("Contraseña") }
         )
 
 
@@ -72,9 +68,7 @@ fun RecuContra2Screen( ){
                 containerColor = Color(0xFFFFDE59)
             )
         ) {
-            Text(
-                text = "Recuperar contraseña"
-            )
+            Label("Recuperar contraseña")
         }
 
     }
