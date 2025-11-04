@@ -7,7 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.example.tiendatenis.navigation.AppNavigation // <-- ¡Importamos el Mapa!
+import com.example.tiendatenis.navigation.AppNavigation 
 import com.example.tiendatenis.ui.theme.TiendaTenisTheme
 
 class MainActivity : ComponentActivity() {
@@ -17,7 +17,6 @@ class MainActivity : ComponentActivity() {
         setContent {
             TiendaTenisTheme {
                 Surface(modifier = Modifier.fillMaxSize()) {
-                    // ¡Y aquí llamamos al Mapa!
                     AppNavigation()
                 }
             }
