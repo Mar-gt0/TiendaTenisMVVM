@@ -28,7 +28,7 @@ fun CheckoutScreen(navController: NavController) {
             TopAppBar(
                 title = { Text("Comprar") },
                 navigationIcon = {
-                    IconButton(onClick = { /* Lógica futura del menú */ }) {
+                    IconButton(onClick = {  }) {
                         Icon(Icons.Default.Menu, "Menú")
                     }
                 },
@@ -66,8 +66,7 @@ fun CheckoutScreen(navController: NavController) {
             ) {
                 Text("Añadir más", style = MaterialTheme.typography.titleMedium)
                 Spacer(modifier = Modifier.width(4.dp))
-                // --- ¡AQUÍ ESTÁ LA CORRECCIÓN! ---
-                // El icono correcto es ArrowForward
+           
                 Icon(Icons.Default.ArrowForward, contentDescription = null, modifier = Modifier.size(16.dp))
             }
             Spacer(modifier = Modifier.height(16.dp))
@@ -115,7 +114,7 @@ fun SuggestionItem(title: String) {
         )
         Spacer(modifier = Modifier.height(4.dp))
         Button(
-            onClick = { /* No hace nada */ },
+            onClick = { },
             colors = ButtonDefaults.buttonColors(containerColor = Color.LightGray, contentColor = Color.Black),
             shape = MaterialTheme.shapes.small
         ) {
