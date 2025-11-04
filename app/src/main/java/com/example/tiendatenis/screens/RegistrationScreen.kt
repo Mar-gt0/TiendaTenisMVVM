@@ -34,17 +34,16 @@ fun RegistrationScreen() {
         verticalArrangement = Arrangement.spacedBy(15.dp, Alignment.CenterVertically)
     ) {
 
-        // 1. Logo (Circular)
         Image(
             painter = painterResource(R.drawable.tennislogo),
             contentDescription = "Logo de nuestra app",
             modifier = Modifier
-                .size(180.dp) // Tamaño del círculo
+                .size(180.dp)
         )
 
         Spacer(modifier = Modifier.height(15.dp))
 
-        // 2. Campo de Nombre
+      
         TextField(
             value = "",
             onValueChange = {},
@@ -53,7 +52,7 @@ fun RegistrationScreen() {
             modifier = Modifier.fillMaxWidth()
         )
 
-        // 3. Campo de Contraseña
+        
         TextField(
             value = "",
             onValueChange = {},
@@ -63,32 +62,28 @@ fun RegistrationScreen() {
             visualTransformation = PasswordVisualTransformation()
         )
 
-        // 4. Campo de Verificación (Dividido en 4)
-        Label("Ingresar numero de verificacion") // Título del campo
+        Label("Ingresar numero de verificacion") 
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceEvenly // Distribuye los 4 campos
+            horizontalArrangement = Arrangement.SpaceEvenly 
         ) {
             val fieldModifier = Modifier
-                .width(60.dp) // Ancho fijo para cada campo de dígito
+                .width(60.dp)
 
-            // Campo 1
             TextField(
                 value = "",
                 onValueChange = {},
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                textStyle = TextStyle(textAlign = TextAlign.Center), // <-- LÍNEA CORREGIDA
+                textStyle = TextStyle(textAlign = TextAlign.Center), A
                 singleLine = true
             )
-            // Campo 2
             TextField(
                 value = "",
                 onValueChange = {},
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                textStyle = TextStyle(textAlign = TextAlign.Center), // <-- LÍNEA CORREGIDA
+                textStyle = TextStyle(textAlign = TextAlign.Center), 
                 singleLine = true
             )
-            // Campo 3
             TextField(
                 value = "",
                 onValueChange = {},
@@ -101,12 +96,11 @@ fun RegistrationScreen() {
                 value = "",
                 onValueChange = {},
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                textStyle = TextStyle(textAlign = TextAlign.Center), // <-- LÍNEA CORREGIDA
+                textStyle = TextStyle(textAlign = TextAlign.Center),
                 singleLine = true
             )
         }
 
-        // 5. Campo de Correo
         TextField(
             value = "",
             onValueChange = {},
@@ -117,13 +111,12 @@ fun RegistrationScreen() {
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        // 6. Botón "Continuar"
         Button(
             onClick = {},
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFFFFDE59) // Tu color amarillo
+                containerColor = Color(0xFFFFDE59) 
             ),
-            modifier = Modifier.fillMaxWidth(0.6f) // Ancho ajustado
+            modifier = Modifier.fillMaxWidth(0.6f) 
         ) {
             Label("Continuar")
         }
