@@ -15,7 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.tiendatenis.R
 import com.example.tiendatenis.ui.theme.TiendaTenisTheme
-// ESTA ES LA LÍNEA CORREGIDA:
+
 import com.example.tiendatenis.ui.theme.texts.Label
 
 @Composable
