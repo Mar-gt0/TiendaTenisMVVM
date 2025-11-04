@@ -26,13 +26,10 @@ import com.example.tiendatenis.ui.theme.TiendaTenisTheme
 fun PurchaseSuccessScreen(navController: NavController) {
     Scaffold(
         topBar = {
-            // Esta pantalla tiene una TopBar más simple en el Balsamiq
             TopAppBar(
                 title = { Text("Compra") },
                 navigationIcon = {
-                    // Flecha para volver al inicio (HomeScreen)
                     IconButton(onClick = {
-                        // Navega a "home" y limpia todo el historial de compra
                         navController.navigate("home") {
                             popUpTo(navController.graph.startDestinationId)
                             launchSingleTop = true
@@ -53,7 +50,6 @@ fun PurchaseSuccessScreen(navController: NavController) {
         ) {
             Spacer(modifier = Modifier.height(32.dp))
 
-            // 1. Texto "Compra exitosa"
             Text(
                 "Compra exitosa",
                 fontSize = 22.sp,
@@ -63,7 +59,6 @@ fun PurchaseSuccessScreen(navController: NavController) {
             )
             Spacer(modifier = Modifier.height(32.dp))
 
-            // 2. Resumen del producto
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
@@ -82,7 +77,6 @@ fun PurchaseSuccessScreen(navController: NavController) {
             }
             Spacer(modifier = Modifier.height(32.dp))
 
-            // 3. Información de envío
             Column(modifier = Modifier.fillMaxWidth()) {
                 Text("Envio gratuito", fontWeight = FontWeight.Bold)
                 Text("Llega el jueves 9 de octubre", color = Color.Gray)
