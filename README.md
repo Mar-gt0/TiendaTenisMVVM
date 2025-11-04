@@ -6,7 +6,7 @@ Este es el proyecto final para la materia de desarrollo móvil.
 * Marlen Garcia Tovar
 * Mitzi Yessenia Arrieta Ignacio
 * Omar Haziel Estrada Estrada
-* Alicia Jeanette Tapia Ramirez
+* Janette Alicia Tapia Ramirez
 * Francisco Javier Ruiz Padilla
 
 ## Credenciales de Acceso
