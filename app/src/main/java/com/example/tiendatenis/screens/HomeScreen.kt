@@ -34,6 +34,11 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel) {
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
+    // Recargar productos cuando vuelves a esta pantalla
+    LaunchedEffect(Unit) {
+        viewModel.loadProducts()
+    }
+
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {

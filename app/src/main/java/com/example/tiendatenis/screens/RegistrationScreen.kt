@@ -12,10 +12,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-// IMPORTS NUEVOS:
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
-// ---
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
@@ -37,13 +35,11 @@ fun RegistrationScreen() {
         Image(
             painter = painterResource(R.drawable.tennislogo),
             contentDescription = "Logo de nuestra app",
-            modifier = Modifier
-                .size(180.dp)
+            modifier = Modifier.size(180.dp)
         )
 
         Spacer(modifier = Modifier.height(15.dp))
 
-      
         TextField(
             value = "",
             onValueChange = {},
@@ -52,7 +48,6 @@ fun RegistrationScreen() {
             modifier = Modifier.fillMaxWidth()
         )
 
-        
         TextField(
             value = "",
             onValueChange = {},
@@ -62,42 +57,44 @@ fun RegistrationScreen() {
             visualTransformation = PasswordVisualTransformation()
         )
 
-        Label("Ingresar numero de verificacion") 
+        Label("Ingresar numero de verificacion")
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceEvenly 
+            horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-            val fieldModifier = Modifier
-                .width(60.dp)
+            val fieldModifier = Modifier.width(60.dp)
 
             TextField(
                 value = "",
                 onValueChange = {},
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                textStyle = TextStyle(textAlign = TextAlign.Center), A
-                singleLine = true
+                textStyle = TextStyle(textAlign = TextAlign.Center),
+                singleLine = true,
+                modifier = fieldModifier
             )
-            TextField(
-                value = "",
-                onValueChange = {},
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                textStyle = TextStyle(textAlign = TextAlign.Center), 
-                singleLine = true
-            )
-            TextField(
-                value = "",
-                onValueChange = {},
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                textStyle = TextStyle(textAlign = TextAlign.Center), // <-- LÍNEA CORREGIDA
-                singleLine = true
-            )
-            // Campo 4
             TextField(
                 value = "",
                 onValueChange = {},
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 textStyle = TextStyle(textAlign = TextAlign.Center),
-                singleLine = true
+                singleLine = true,
+                modifier = fieldModifier
+            )
+            TextField(
+                value = "",
+                onValueChange = {},
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                textStyle = TextStyle(textAlign = TextAlign.Center),
+                singleLine = true,
+                modifier = fieldModifier
+            )
+            TextField(
+                value = "",
+                onValueChange = {},
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                textStyle = TextStyle(textAlign = TextAlign.Center),
+                singleLine = true,
+                modifier = fieldModifier
             )
         }
 
@@ -114,9 +111,9 @@ fun RegistrationScreen() {
         Button(
             onClick = {},
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFFFFDE59) 
+                containerColor = Color(0xFFFFDE59)
             ),
-            modifier = Modifier.fillMaxWidth(0.6f) 
+            modifier = Modifier.fillMaxWidth(0.6f)
         ) {
             Label("Continuar")
         }

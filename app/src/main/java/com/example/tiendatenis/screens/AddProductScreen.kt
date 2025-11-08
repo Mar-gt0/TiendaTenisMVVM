@@ -1,21 +1,31 @@
 package com.example.tiendatenis.screens
 
+import android.app.Application
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
-import com.example.tiendatenis.ui.theme.TiendaTenisTheme
+import com.example.tiendatenis.database.DatabaseHelper
+import com.example.tiendatenis.model.Product
+import java.util.UUID
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddProductScreen(navController: NavController) {
+
+    var name by remember { mutableStateOf("") }
+    var description by remember { mutableStateOf("") }
+    var price by remember { mutableStateOf("") }
+    var showSuccess by remember { mutableStateOf(false) }
+
+    val context = LocalContext.current
+    val dbHelper = remember { DatabaseHelper(context) }
 
     Scaffold(
         topBar = {
@@ -40,22 +50,22 @@ fun AddProductScreen(navController: NavController) {
         ) {
 
             TextField(
-                value = "",
-                onValueChange = {},
+                value = name,
+                onValueChange = { name = it },
                 label = { Text("Nombre del producto") },
                 modifier = Modifier.fillMaxWidth()
             )
 
             TextField(
-                value = "",
-                onValueChange = {},
+                value = description,
+                onValueChange = { description = it },
                 label = { Text("Descripción") },
                 modifier = Modifier.fillMaxWidth()
             )
 
             TextField(
-                value = "",
-                onValueChange = {},
+                value = price,
+                onValueChange = { price = it },
                 label = { Text("Precio") },
                 modifier = Modifier.fillMaxWidth()
             )
@@ -63,19 +73,40 @@ fun AddProductScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(20.dp))
 
             Button(
-                onClick = { },
+                onClick = {
+                    if (name.isNotBlank() && description.isNotBlank() && price.isNotBlank()) {
+                        val newProduct = Product(
+                            id = UUID.randomUUID().toString(),
+                            name = name,
+                            description = description,
+                            price = price.toDoubleOrNull() ?: 0.0,
+                            imageUrl = ""
+                        )
+                        dbHelper.insertProduct(newProduct)
+                        showSuccess = true
+
+                        // Limpiar campos
+                        name = ""
+                        description = ""
+                        price = ""
+                    }
+                },
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text("Guardar Producto")
             }
-        }
-    }
-}
 
-@Preview(showBackground = true)
-@Composable
-fun PreviewAddProductScreen() {
-    TiendaTenisTheme {
-        AddProductScreen(navController = rememberNavController())
+            if (showSuccess) {
+                Text(
+                    "✓ Producto guardado exitosamente",
+                    color = MaterialTheme.colorScheme.primary
+                )
+                LaunchedEffect(Unit) {
+                    kotlinx.coroutines.delay(2000)
+                    showSuccess = false
+                    navController.popBackStack()
+                }
+            }
+        }
     }
 }
