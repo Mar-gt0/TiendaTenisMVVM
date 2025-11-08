@@ -22,7 +22,6 @@ fun AddProductScreen(navController: NavController) {
             TopAppBar(
                 title = { Text("Agregar Nuevo Producto") },
                 navigationIcon = {
-                    // Flecha para volver atrás
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(Icons.Default.ArrowBack, contentDescription = "Volver")
                     }
@@ -31,7 +30,6 @@ fun AddProductScreen(navController: NavController) {
         }
     ) { paddingValues ->
 
-        // Un formulario simple
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -41,7 +39,6 @@ fun AddProductScreen(navController: NavController) {
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
 
-            // Campo para el Nombre
             TextField(
                 value = "",
                 onValueChange = {},
@@ -49,7 +46,6 @@ fun AddProductScreen(navController: NavController) {
                 modifier = Modifier.fillMaxWidth()
             )
 
-            // Campo para la Descripción
             TextField(
                 value = "",
                 onValueChange = {},
@@ -57,7 +53,6 @@ fun AddProductScreen(navController: NavController) {
                 modifier = Modifier.fillMaxWidth()
             )
 
-            // Campo para el Precio
             TextField(
                 value = "",
                 onValueChange = {},
@@ -67,9 +62,8 @@ fun AddProductScreen(navController: NavController) {
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            // Botón de Guardar (sin funcionalidad, como pide Req 12)
             Button(
-                onClick = { /* No hace nada */ },
+                onClick = { },
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text("Guardar Producto")

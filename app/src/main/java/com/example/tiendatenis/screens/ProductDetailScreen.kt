@@ -25,14 +25,13 @@ import com.example.tiendatenis.ui.theme.TiendaTenisTheme
 @Composable
 fun ProductDetailScreen(navController: NavController, product: Product?) {
 
-    // Estados para guardar la talla y color seleccionados
     var selectedSize by remember { mutableStateOf("25") }
     var selectedColor by remember { mutableStateOf("Verdes") }
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Comprar") }, // Como en el Balsamiq
+                title = { Text("Comprar") }, 
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(Icons.Default.ArrowBack, contentDescription = "Volver")
@@ -56,11 +55,10 @@ fun ProductDetailScreen(navController: NavController, product: Product?) {
                 .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Precio
+
             Text(text = "$${product.price}", fontSize = 24.sp, fontWeight = FontWeight.Bold)
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Imagen del producto
             Image(
                 painter = painterResource(id = R.drawable.tennislogo),
                 contentDescription = product.name,
@@ -68,7 +66,6 @@ fun ProductDetailScreen(navController: NavController, product: Product?) {
             )
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Nombre del producto
             Text(text = "Tenis star ${selectedColor.lowercase()}", fontSize = 20.sp)
             Spacer(modifier = Modifier.height(24.dp))
 
@@ -88,7 +85,6 @@ fun ProductDetailScreen(navController: NavController, product: Product?) {
             }
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Selector de Colores
             Text("Colores disponibles", modifier = Modifier.fillMaxWidth())
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -103,9 +99,8 @@ fun ProductDetailScreen(navController: NavController, product: Product?) {
                 }
             }
 
-            Spacer(modifier = Modifier.weight(1f)) // Empuja los botones de acción hacia abajo
+            Spacer(modifier = Modifier.weight(1f)) 
 
-            // Botones de Acción
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly
@@ -113,20 +108,17 @@ fun ProductDetailScreen(navController: NavController, product: Product?) {
                 Button(onClick = { navController.popBackStack() }, colors = ButtonDefaults.buttonColors(containerColor = Color.LightGray)) {
                     Text("Cancelar")
                 }
-                // Dentro de @Composable fun ProductDetailScreen(...)
 
-// ...
-                Button(onClick = { navController.popBackStack() }) { // <-- CAMBIO AQUÍ
+                Button(onClick = { navController.popBackStack() }) { 
                     Text("Guardar cambios")
                 }
-// ...
+
                 }
             }
         }
     }
 
 
-// Composable reutilizable para los botones de selección (Talla o Color)
 @Composable
 fun SizeButton(text: String, isSelected: Boolean, onClick: () -> Unit) {
     val backgroundColor = if (isSelected) MaterialTheme.colorScheme.primary else Color.LightGray
@@ -141,7 +133,6 @@ fun SizeButton(text: String, isSelected: Boolean, onClick: () -> Unit) {
     }
 }
 
-// Podríamos usar el mismo SizeButton, pero creamos otro por claridad
 @Composable
 fun ColorButton(text: String, isSelected: Boolean, onClick: () -> Unit) {
     val backgroundColor = if (isSelected) MaterialTheme.colorScheme.primary else Color.LightGray

@@ -81,7 +81,6 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel) {
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     items(products) { product ->
-                        // 1. Aquí nos aseguramos de pasar el NavController a cada item
                         ProductItem(product = product, navController = navController)
                     }
                 }
@@ -90,7 +89,6 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel) {
     }
 }
 
-// 2. ProductItem recibe correctamente el NavController
 @Composable
 fun ProductItem(product: Product, navController: NavController) {
     Card(
@@ -122,7 +120,6 @@ fun ProductItem(product: Product, navController: NavController) {
             }
             Spacer(modifier = Modifier.width(16.dp))
 
-            // 3. El botón usa el NavController para navegar a la ruta "cart"
             Button(
                 onClick = { navController.navigate("cart") },
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFDE59), contentColor = Color.Black),
@@ -138,7 +135,7 @@ fun ProductItem(product: Product, navController: NavController) {
 @Composable
 fun FilterButton(text: String) {
     Button(
-        onClick = { /* Acción de filtro */ },
+        onClick = {},
         colors = ButtonDefaults.buttonColors(
             containerColor = Color.LightGray,
             contentColor = Color.Black

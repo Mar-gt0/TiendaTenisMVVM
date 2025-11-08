@@ -12,7 +12,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.tiendatenis.ui.theme.TiendaTenisTheme
-// ESTA ES LA LÍNEA CORREGIDA:
 import com.example.tiendatenis.ui.theme.texts.Label
 
 @Composable
@@ -25,7 +24,7 @@ fun RecuContra2Screen() {
         verticalArrangement = Arrangement.spacedBy(20.dp, Alignment.CenterVertically)
     ) {
 
-        Label("Ingresa el código que enviamos al correo") // Ahora debería encontrarlo
+        Label("Ingresa el código que enviamos al correo") 
 
         TextField(
             value = "",
@@ -33,7 +32,7 @@ fun RecuContra2Screen() {
             label = { Text(" * * * *") }
         )
 
-        Label("Ingresa tu nueva contraseña") // Ahora debería encontrarlo
+        Label("Ingresa tu nueva contraseña") 
 
         TextField(
             value = "",
@@ -41,7 +40,7 @@ fun RecuContra2Screen() {
             label = { Text("Contraseña") }
         )
 
-        Label("Confirma tu contraseña") // Ahora debería encontrarlo
+        Label("Confirma tu contraseña")
 
         TextField(
             value = "",
@@ -55,7 +54,7 @@ fun RecuContra2Screen() {
                 containerColor = Color(0xFFFFDE59)
             )
         ) {
-            Label("Recuperar contraseña") // Ahora debería encontrarlo
+            Label("Recuperar contraseña") 
         }
     }
 }

@@ -15,7 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.tiendatenis.R
 import com.example.tiendatenis.ui.theme.TiendaTenisTheme
-// ESTA ES LA LÍNEA CORREGIDA:
+
 import com.example.tiendatenis.ui.theme.texts.Label
 
 @Composable
@@ -32,7 +32,7 @@ fun RecuContraScreen() {
             contentDescription = "Logo de nuestra app"
         )
 
-        Label("Ingresa tu correo electronico") // Ahora debería encontrarlo
+        Label("Ingresa tu correo electronico") 
 
         TextField(
             value = "",
@@ -46,7 +46,7 @@ fun RecuContraScreen() {
                 containerColor = Color(0xFFFFDE59)
             )
         ) {
-            Label("Continuar") // Ahora debería encontrarlo
+            Label("Continuar")
         }
     }
 }

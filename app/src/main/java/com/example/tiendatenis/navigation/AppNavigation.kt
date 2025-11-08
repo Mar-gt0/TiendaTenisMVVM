@@ -47,8 +47,7 @@ fun AppNavigation() {
             EditProductScreen(navController = navController)
         }
 
-        // --- ¡¡AQUÍ ESTÁ LA RUTA QUE FALTA!! ---
-        // Esta es la ruta para la "Bolsa de Compra"
+  
         composable("cart") {
             ShoppingCartScreen(navController = navController)
         }

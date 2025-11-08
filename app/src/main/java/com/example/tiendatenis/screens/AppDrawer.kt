@@ -17,7 +17,6 @@ import com.example.tiendatenis.ui.theme.TiendaTenisTheme
 @Composable
 fun AppDrawer(navController: NavController) {
     ModalDrawerSheet {
-        // Sección del Perfil
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -34,13 +33,10 @@ fun AppDrawer(navController: NavController) {
             Text("Mi perfil")
         }
 
-        Divider() // Línea divisora
+        Divider() 
 
-        // Lista de Opciones de Navegación
         Column(modifier = Modifier.padding(16.dp)) {
-            // Dentro de @Composable fun AppDrawer(...)
 
-// ...
             DrawerItem(icon = Icons.Default.Home, label = "Inicio", onClick = { navController.navigate("home") })
             DrawerItem(icon = Icons.Default.ShoppingCart, label = "Comprar", onClick = { navController.navigate("home") })
             DrawerItem(icon = Icons.Default.Delete, label = "Eliminar", onClick = { /* Lógica futura */ })
@@ -48,7 +44,6 @@ fun AppDrawer(navController: NavController) {
             DrawerItem(icon = Icons.Default.Add, label = "Agregar", onClick = { navController.navigate("add_product") })
             DrawerItem(icon = Icons.Default.Favorite, label = "Favoritos", onClick = { /* Lógica futura */ })
             DrawerItem(icon = Icons.Default.ExitToApp, label = "Cerrar Sesión", onClick = {
-                // Navega al login y limpia el historial para que no pueda volver atrás
                 navController.navigate("login") {
                     popUpTo(0)
                 }
@@ -69,7 +64,7 @@ private fun DrawerItem(icon: ImageVector, label: String, onClick: () -> Unit) {
             Icon(imageVector = icon, contentDescription = null)
             Spacer(modifier = Modifier.width(16.dp))
             Text(label)
-            Spacer(modifier = Modifier.weight(1f)) // Empuja el texto a la izquierda
+            Spacer(modifier = Modifier.weight(1f)) 
         }
     }
 }
