@@ -88,4 +88,46 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         
         sampleProducts.forEach { insertProduct(it) }
     }
+    // UPDATE - Actualizar producto
+    fun updateProduct(product: Product): Int {
+        val db = writableDatabase
+        val values = ContentValues().apply {
+            put(COLUMN_NAME, product.name)
+            put(COLUMN_DESCRIPTION, product.description)
+            put(COLUMN_PRICE, product.price)
+            put(COLUMN_IMAGE_URL, product.imageUrl)
+        }
+        val result = db.update(TABLE_PRODUCTS, values, "$COLUMN_ID = ?", arrayOf(product.id))
+        db.close()
+        return result
+    }
+
+    // DELETE - Eliminar producto
+    fun deleteProduct(productId: String): Int {
+        val db = writableDatabase
+        val result = db.delete(TABLE_PRODUCTS, "$COLUMN_ID = ?", arrayOf(productId))
+        db.close()
+        return result
+    }
+
+    // READ - Obtener producto por ID
+    fun getProductById(productId: String): Product? {
+        val db = readableDatabase
+        val cursor = db.rawQuery("SELECT * FROM $TABLE_PRODUCTS WHERE $COLUMN_ID = ?", arrayOf(productId))
+
+        var product: Product? = null
+        if (cursor.moveToFirst()) {
+            product = Product(
+                id = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_ID)),
+                name = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME)),
+                description = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DESCRIPTION)),
+                price = cursor.getDouble(cursor.getColumnIndexOrThrow(COLUMN_PRICE)),
+                imageUrl = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_IMAGE_URL))
+            )
+        }
+        cursor.close()
+        db.close()
+        return product
+    }
+
 }

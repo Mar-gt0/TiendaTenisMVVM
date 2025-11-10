@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
@@ -86,7 +88,7 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel) {
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     items(products) { product ->
-                        ProductItem(product = product, navController = navController)
+                        ProductItem(product = product, navController = navController, viewModel = viewModel)
                     }
                 }
             }
@@ -95,7 +97,9 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel) {
 }
 
 @Composable
-fun ProductItem(product: Product, navController: NavController) {
+fun ProductItem(product: Product, navController: NavController, viewModel: HomeViewModel) {
+    var showDeleteDialog by remember { mutableStateOf(false) }
+
     Card(
         onClick = {
             navController.navigate("detail/${product.id}")
@@ -123,17 +127,46 @@ fun ProductItem(product: Product, navController: NavController) {
                 Text(product.description, style = MaterialTheme.typography.bodySmall, color = Color.Gray)
                 Text("$${product.price}", style = MaterialTheme.typography.titleSmall, color = MaterialTheme.colorScheme.primary)
             }
-            Spacer(modifier = Modifier.width(16.dp))
+            Spacer(modifier = Modifier.width(8.dp))
 
-            Button(
-                onClick = { navController.navigate("cart") },
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFDE59), contentColor = Color.Black),
-                shape = MaterialTheme.shapes.small,
-                contentPadding = PaddingValues(horizontal = 12.dp, vertical = 8.dp)
+            // Botón Editar
+            IconButton(
+                onClick = { navController.navigate("edit_product/${product.id}") }
             ) {
-                Text("Agregar", fontSize = 12.sp)
+                Icon(Icons.Default.Edit, contentDescription = "Editar", tint = Color(0xFF5E5E8A))
+            }
+
+            // Botón Eliminar
+            IconButton(
+                onClick = { showDeleteDialog = true }
+            ) {
+                Icon(Icons.Default.Delete, contentDescription = "Eliminar", tint = Color.Red)
             }
         }
+    }
+
+    // Diálogo de confirmación para eliminar
+    if (showDeleteDialog) {
+        AlertDialog(
+            onDismissRequest = { showDeleteDialog = false },
+            title = { Text("Confirmar eliminación") },
+            text = { Text("¿Estás seguro de que deseas eliminar '${product.name}'?") },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        viewModel.deleteProduct(product.id)
+                        showDeleteDialog = false
+                    }
+                ) {
+                    Text("Eliminar", color = Color.Red)
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showDeleteDialog = false }) {
+                    Text("Cancelar")
+                }
+            }
+        )
     }
 }
 

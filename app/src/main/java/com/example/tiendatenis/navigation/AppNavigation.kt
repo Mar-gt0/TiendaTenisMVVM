@@ -43,11 +43,16 @@ fun AppNavigation() {
         composable("add_product") {
             AddProductScreen(navController = navController)
         }
-        composable("edit_product") {
-            EditProductScreen(navController = navController)
+        composable(
+            route = "edit_product/{productId}",
+            arguments = listOf(navArgument("productId") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val productId = backStackEntry.arguments?.getString("productId")
+            EditProductScreen(navController = navController, productId = productId)
         }
 
-  
+
+
         composable("cart") {
             ShoppingCartScreen(navController = navController)
         }

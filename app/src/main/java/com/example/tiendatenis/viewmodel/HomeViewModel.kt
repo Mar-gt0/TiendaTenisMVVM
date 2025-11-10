@@ -41,4 +41,15 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
             loadProducts()
         }
     }
+    fun deleteProduct(productId: String) {
+        viewModelScope.launch {
+            dbHelper.deleteProduct(productId)
+            loadProducts()
+        }
+    }
+
+    fun getProductByIdForEdit(productId: String): Product? {
+        return dbHelper.getProductById(productId)
+    }
+
 }
