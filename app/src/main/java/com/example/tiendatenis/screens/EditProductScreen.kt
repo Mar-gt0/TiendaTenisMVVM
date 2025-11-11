@@ -7,37 +7,37 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.example.tiendatenis.database.DatabaseHelper
 import com.example.tiendatenis.model.Product
+import com.example.tiendatenis.viewmodel.HomeViewModel
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EditProductScreen(navController: NavController, productId: String?) {
 
-    val context = LocalContext.current
-    val dbHelper = remember { DatabaseHelper(context) }
+    val viewModel: HomeViewModel = viewModel()
+    val scope = rememberCoroutineScope()
+    val products by viewModel.products.collectAsState()
 
     var product by remember { mutableStateOf<Product?>(null) }
     var name by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
     var price by remember { mutableStateOf("") }
     var showSuccess by remember { mutableStateOf(false) }
-    var isLoading by remember { mutableStateOf(true) }
+    var isLoading by remember { mutableStateOf(false) }
 
-    // Cargar producto al iniciar
-    LaunchedEffect(productId) {
+    LaunchedEffect(productId, products) {
         if (productId != null) {
-            product = dbHelper.getProductById(productId)
+            product = products.find { it.id == productId }
             product?.let {
                 name = it.name
                 description = it.description
                 price = it.price.toString()
             }
         }
-        isLoading = false
     }
 
     Scaffold(
@@ -53,7 +53,7 @@ fun EditProductScreen(navController: NavController, productId: String?) {
         }
     ) { paddingValues ->
 
-        if (isLoading) {
+        if (product == null) {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
@@ -61,15 +61,6 @@ fun EditProductScreen(navController: NavController, productId: String?) {
                 contentAlignment = Alignment.Center
             ) {
                 CircularProgressIndicator()
-            }
-        } else if (product == null) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(paddingValues),
-                contentAlignment = Alignment.Center
-            ) {
-                Text("Producto no encontrado")
             }
         } else {
             Column(
@@ -84,38 +75,55 @@ fun EditProductScreen(navController: NavController, productId: String?) {
                     value = name,
                     onValueChange = { name = it },
                     label = { Text("Nombre del producto") },
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
+                    enabled = !isLoading
                 )
                 TextField(
                     value = description,
                     onValueChange = { description = it },
                     label = { Text("Descripción") },
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
+                    enabled = !isLoading
                 )
                 TextField(
                     value = price,
                     onValueChange = { price = it },
                     label = { Text("Precio") },
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
+                    enabled = !isLoading
                 )
                 Spacer(modifier = Modifier.height(20.dp))
                 Button(
                     onClick = {
-                        if (name.isNotBlank() && description.isNotBlank() && price.isNotBlank()) {
-                            val updatedProduct = Product(
-                                id = product!!.id,
-                                name = name,
-                                description = description,
-                                price = price.toDoubleOrNull() ?: 0.0,
-                                imageUrl = product!!.imageUrl
-                            )
-                            dbHelper.updateProduct(updatedProduct)
-                            showSuccess = true
+                        scope.launch {
+                            if (name.isNotBlank() && description.isNotBlank() && price.isNotBlank()) {
+                                isLoading = true
+                                val updatedProduct = Product(
+                                    id = product!!.id,
+                                    name = name,
+                                    description = description,
+                                    price = price.toDoubleOrNull() ?: 0.0,
+                                    imageUrl = product!!.imageUrl
+                                )
+                                val success = viewModel.updateProduct(updatedProduct)
+                                isLoading = false
+                                if (success) {
+                                    showSuccess = true
+                                }
+                            }
                         }
                     },
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
+                    enabled = !isLoading
                 ) {
-                    Text("Guardar Cambios")
+                    if (isLoading) {
+                        CircularProgressIndicator(
+                            modifier = Modifier.size(20.dp),
+                            color = MaterialTheme.colorScheme.onPrimary
+                        )
+                    } else {
+                        Text("Guardar Cambios")
+                    }
                 }
 
                 if (showSuccess) {

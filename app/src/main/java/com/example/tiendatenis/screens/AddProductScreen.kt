@@ -1,6 +1,5 @@
 package com.example.tiendatenis.screens
 
-import android.app.Application
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -8,24 +7,26 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.example.tiendatenis.database.DatabaseHelper
 import com.example.tiendatenis.model.Product
+import com.example.tiendatenis.viewmodel.HomeViewModel
+import kotlinx.coroutines.launch
 import java.util.UUID
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddProductScreen(navController: NavController) {
 
+    val viewModel: HomeViewModel = viewModel()
+    val scope = rememberCoroutineScope()
+
     var name by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
     var price by remember { mutableStateOf("") }
     var showSuccess by remember { mutableStateOf(false) }
-
-    val context = LocalContext.current
-    val dbHelper = remember { DatabaseHelper(context) }
+    var isLoading by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
@@ -53,47 +54,62 @@ fun AddProductScreen(navController: NavController) {
                 value = name,
                 onValueChange = { name = it },
                 label = { Text("Nombre del producto") },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                enabled = !isLoading
             )
 
             TextField(
                 value = description,
                 onValueChange = { description = it },
                 label = { Text("Descripción") },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                enabled = !isLoading
             )
 
             TextField(
                 value = price,
                 onValueChange = { price = it },
                 label = { Text("Precio") },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                enabled = !isLoading
             )
 
             Spacer(modifier = Modifier.height(20.dp))
 
             Button(
                 onClick = {
-                    if (name.isNotBlank() && description.isNotBlank() && price.isNotBlank()) {
-                        val newProduct = Product(
-                            id = UUID.randomUUID().toString(),
-                            name = name,
-                            description = description,
-                            price = price.toDoubleOrNull() ?: 0.0,
-                            imageUrl = ""
-                        )
-                        dbHelper.insertProduct(newProduct)
-                        showSuccess = true
-
-                        // Limpiar campos
-                        name = ""
-                        description = ""
-                        price = ""
+                    scope.launch {
+                        if (name.isNotBlank() && description.isNotBlank() && price.isNotBlank()) {
+                            isLoading = true
+                            val newProduct = Product(
+                                id = UUID.randomUUID().toString(),
+                                name = name,
+                                description = description,
+                                price = price.toDoubleOrNull() ?: 0.0,
+                                imageUrl = ""
+                            )
+                            val success = viewModel.createProduct(newProduct)
+                            isLoading = false
+                            if (success) {
+                                showSuccess = true
+                                name = ""
+                                description = ""
+                                price = ""
+                            }
+                        }
                     }
                 },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                enabled = !isLoading
             ) {
-                Text("Guardar Producto")
+                if (isLoading) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(20.dp),
+                        color = MaterialTheme.colorScheme.onPrimary
+                    )
+                } else {
+                    Text("Guardar Producto")
+                }
             }
 
             if (showSuccess) {
